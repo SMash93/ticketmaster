@@ -7,6 +7,27 @@
 <h:head></h:head>
 <h:body>
 	<ui:include src="/templates/commonHeader.xhtml" />
+	<p:dataTable var="movie" value="#{movieManagedBean.movieList}">
+		<p:column headerText="Title">
+			<h:outputText value="#{movie.title}" />
+		</p:column>
+
+		<p:column headerText="Genre">
+			<h:outputText value="#{movie.genre}" />
+		</p:column>
+
+		<p:column headerText="Description">
+			<h:outputText value="#{movie.description}" />
+		</p:column>
+
+		<p:column headerText="Color">
+			<h:outputText value="#{car.color}" />
+		</p:column>
+		<p:column headerText="Program">
+			<p:button value="Program">
+			</p:button>
+		</p:column>
+	</p:dataTable>
 </h:body>
 
 </html>

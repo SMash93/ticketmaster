@@ -7,12 +7,13 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import edu.msg.ticketmaster.backend.model.User;
 import edu.msg.ticketmaster.backend.service.local.UserService;
 
 @ManagedBean(name = "signUpBean")
-public class SignUpBean implements Serializable {
+public class SignUpManagedBean implements Serializable {
 
 	private static final long serialVersionUID = -9181917368978532243L;
 	private String firstname;
@@ -97,13 +98,19 @@ public class SignUpBean implements Serializable {
 		try {
 
 			if (userService.signUp(user))
-				return "movies";
+			{
+				User validateUser = userService.validate(user.getUsername(), user.getPassword());
+				HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+				session.setAttribute("LoggedUser", validateUser);
+				return "home";
+			}
 
 		} catch (Exception e) {
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username already exists!", "");
 			FacesContext.getCurrentInstance().addMessage(null, message);
+			return "signup";
 		}
-		return "signup";
+		return "home";
 	}
 
 }

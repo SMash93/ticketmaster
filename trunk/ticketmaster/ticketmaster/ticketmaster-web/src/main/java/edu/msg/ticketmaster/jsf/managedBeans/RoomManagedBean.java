@@ -5,13 +5,17 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import edu.msg.ticketmaster.backend.model.Room;
 import edu.msg.ticketmaster.backend.service.local.RoomService;
 import edu.msg.ticketmaster.backend.serviceException.ServiceException;
 
 @ManagedBean(name = "roomManagedBean")
+@ViewScoped
 public class RoomManagedBean implements Serializable {
 
 	private static final long serialVersionUID = -5208386015282696636L;
@@ -21,6 +25,7 @@ public class RoomManagedBean implements Serializable {
 
 	private List<Room> rooms;
 	private Room roomSelected;
+	private FacesMessage message = null;
 
 	@PostConstruct
 	private void init() {
@@ -81,10 +86,15 @@ public class RoomManagedBean implements Serializable {
 
 		try {
 			roomService.insertRoom(room);
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Succes! Room added!","");
+			FacesContext.getCurrentInstance().addMessage(null, message);
 			return "rooms_management";
-		} catch (ServiceException e) {
-			return "rooms_management";
+		} catch (Exception e) {
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Room already exists!", "");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			
 		}
+		return "rooms_management";
 
 	}
 	
@@ -92,6 +102,8 @@ public class RoomManagedBean implements Serializable {
 		
 		roomService.deleteRoom(room);
 		rooms = roomService.findAllRooms();
+		message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Rooom deleted!","");
+		FacesContext.getCurrentInstance().addMessage(null, message);
 		return "rooms_management";
 	}
 

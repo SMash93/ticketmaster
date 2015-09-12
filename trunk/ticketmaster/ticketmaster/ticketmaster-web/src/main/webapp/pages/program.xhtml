@@ -17,13 +17,20 @@
 			rowKey="#{movie.title}">
 			<f:facet name="header">
 				<h:outputText value="Program Cinema" style="float:left" />
-				<p:calendar value="#{calendarBean.date}" pattern="MM-dd-yyyy"></p:calendar>
+				<p:calendar id="event" value="#{programBean.date}"
+					pattern="yyyy-MM-dd">
+					<p:ajax event="dateSelect"
+						listener="#{programBean.handleDateSelect}" update="singleDT"></p:ajax>
+				</p:calendar>
 			</f:facet>
 			<p:column headerText="Title">
 				<h:outputText value="#{movie.title}" />
 			</p:column>
 			<p:column headerText="Genre">
 				<h:outputText value="#{movie.genre}" />
+			</p:column>
+			<p:column headerText="">
+				<h:outputText value="" />
 			</p:column>
 
 			<f:facet name="footer">

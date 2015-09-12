@@ -27,11 +27,11 @@ public class BoardManagedBean implements Serializable {
 	// SeatService seatService;
 
 	@EJB
-	RoomService roomService;
+	private RoomService roomService;
 	@EJB
-	SeatService seatService;
+	private SeatService seatService;
 	@EJB
-	ReservationService reservationService;
+	private ReservationService reservationService;
 
 	private boolean[][] reservedSeats;
 	private boolean[][] disabledSeats;

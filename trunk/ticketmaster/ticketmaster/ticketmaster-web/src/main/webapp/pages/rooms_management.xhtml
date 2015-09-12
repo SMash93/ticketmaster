@@ -10,29 +10,46 @@
 	<ui:include src="/templates/commonHeader.xhtml" />
 	<h:form id="form">
 
-		<p:accordionPanel id="accPanel">
+
+		<p:accordionPanel id="accPanel" update=":form:singleDT">
 
 			<p:tab title="Add rooms">
-				<h:panelGrid id="gridRoom" columns="2" cellpadding="10">
+				<p:messages autoUpdate="true" />
+				<h:panelGrid id="gridRoom" columns="3" cellpadding="10">
 
 					<h:outputLabel for="roomName" value="Name:"
 						style="font-weight:bold" />
 					<p:inputText id="roomName" value="#{roomManagedBean.roomName}"
-						required="true" label="Name" />
+						title="The length must have at least 2 characters" required="true"
+						label="Name" />
+					<h:panelGroup>
+						<p:tooltip id="focus1" for="roomName" showEvent="focus"
+							hideEvent="blur" />
+						<p:message for="roomName" />
+					</h:panelGroup>
 
 					<h:outputLabel for="noRow" value="No. Row:"
 						style="font-weight:bold" />
 					<p:inputText id="noRow" value="#{roomManagedBean.noRow}"
-						required="true" label="No. Row" />
+						required="true" label="No. Row">
+						<f:validateLongRange minimum="1" maximum="3" />
+					</p:inputText>
+					<p:message for="noRow" />
+
 
 					<h:outputLabel for="noColumn" value="No. Column:"
 						style="font-weight:bold" />
 					<p:inputText id="noColumn" value="#{roomManagedBean.noColumn}"
-						required="true" label="No. Column" />
+						required="true" label="No. Column">
+						<f:validateLongRange minimum="1" maximum="3" />
+					</p:inputText>
 
-					<p:commandButton value="Add Room" update="gridRoom"
-						actionListener="#{roomManagedBean.addRoom}" validateClient="true"
-						style="margin-right:10px" />
+					<p:message for="noColumn" />
+
+
+					<p:commandButton value="Add Room" icon="ui-icon-check"
+						actionListener="#{roomManagedBean.addRoom()}"
+						style="margin-right:10px" validateClient="true" ajax="false" />
 
 				</h:panelGrid>
 			</p:tab>
@@ -41,7 +58,7 @@
 
 
 			<p:tab title="Delete room">
-
+				<p:messages autoUpdate="true" />
 				<h:panelGrid id="grid2" columns="2" cellpadding="10">
 
 					<p:dataTable id="singleDT" var="room"
@@ -59,8 +76,7 @@
 						</p:column>
 						<p:column>
 							<p:commandButton process="@this" icon="ui-icon-trash"
-								value="Delete"
-								action="#{roomManagedBean.deleteRoom(room)}"
+								value="Delete" action="#{roomManagedBean.deleteRoom(room)}"
 								update="form:accPanel:grid2" />
 						</p:column>
 
