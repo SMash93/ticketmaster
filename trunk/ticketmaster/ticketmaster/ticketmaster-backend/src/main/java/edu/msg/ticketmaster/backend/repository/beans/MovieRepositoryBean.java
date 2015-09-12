@@ -1,5 +1,6 @@
 package edu.msg.ticketmaster.backend.repository.beans;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -42,6 +43,17 @@ public class MovieRepositoryBean extends BaseRepositoryBean<Movie, Long>implemen
 		entityManager = getEntityManager();
 		Query query = entityManager.createQuery("SELECT m FROM Movie m WHERE m.isActive = 1");
 		return query.getResultList();
+	}
+
+	@Override
+	public boolean checkDateForMovie(Movie movie) {
+		entityManager = getEntityManager();
+		Query query = entityManager.createQuery(
+				"select max(s.broadcastDate) from Schedule s inner join Movie m on m.id = s.movie.id where m.title = :title");
+		query.setParameter("title", movie.getTitle());
+		Date date = (Date) query.getSingleResult();
+		Date currentDate = new Date();
+		return (date.after(currentDate));
 	}
 
 }

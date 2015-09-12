@@ -98,4 +98,13 @@ public class MovieServiceBean implements MovieService {
 		}
 	}
 
+	@Override
+	public boolean checkDateForMovie(Movie movie) throws ServiceException {
+		try {
+			return rep.checkDateForMovie(movie);
+		} catch (RepositoryException e) {
+			throw new ServiceException("Failed to find active movies!");
+		}
+	}
+
 }

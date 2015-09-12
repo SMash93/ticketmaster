@@ -24,6 +24,10 @@ public class MovieManagedBean {
 		return movieList;
 	}
 
+	public boolean checkDateForMovie(Movie movie) {
+		return movieService.checkDateForMovie(movie);
+	}
+
 	public void setMovieList(List<Movie> movieList) {
 		this.movieList = movieList;
 	}

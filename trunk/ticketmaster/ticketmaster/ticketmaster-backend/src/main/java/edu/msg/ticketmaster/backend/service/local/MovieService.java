@@ -24,4 +24,6 @@ public interface MovieService extends BaseEntityService<Movie, Long> {
 
 	public List<Movie> findActiveMovies() throws ServiceException;
 
+	public boolean checkDateForMovie(Movie movie) throws ServiceException;
+
 }

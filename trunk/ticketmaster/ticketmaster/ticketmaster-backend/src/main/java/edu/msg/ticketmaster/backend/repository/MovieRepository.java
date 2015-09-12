@@ -17,4 +17,6 @@ public interface MovieRepository extends BaseRepository<Movie, Long> {
 
 	public List<Movie> findActiveMovies();
 
+	boolean checkDateForMovie(Movie movie);
+
 }
