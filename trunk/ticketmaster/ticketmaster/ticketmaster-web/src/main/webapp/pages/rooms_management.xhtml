@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body>
+	<ui:include src="/templates/commonHeader.xhtml" />
+	<h:form id="form">
+
+		<p:accordionPanel id="accPanel">
+
+			<p:tab title="Add rooms">
+				<h:panelGrid id="gridRoom" columns="2" cellpadding="10">
+
+					<h:outputLabel for="roomName" value="Name:"
+						style="font-weight:bold" />
+					<p:inputText id="roomName" value="#{roomManagedBean.roomName}"
+						required="true" label="Name" />
+
+					<h:outputLabel for="noRow" value="No. Row:"
+						style="font-weight:bold" />
+					<p:inputText id="noRow" value="#{roomManagedBean.noRow}"
+						required="true" label="No. Row" />
+
+					<h:outputLabel for="noColumn" value="No. Column:"
+						style="font-weight:bold" />
+					<p:inputText id="noColumn" value="#{roomManagedBean.noColumn}"
+						required="true" label="No. Column" />
+
+					<p:commandButton value="Add Room" update="gridRoom"
+						actionListener="#{roomManagedBean.addRoom}" validateClient="true"
+						style="margin-right:10px" />
+
+				</h:panelGrid>
+			</p:tab>
+
+
+
+
+			<p:tab title="Delete room">
+
+				<h:panelGrid id="grid2" columns="2" cellpadding="10">
+
+					<p:dataTable id="singleDT" var="room"
+						value="#{roomManagedBean.rooms}" selectionMode="single"
+						selection="#{roomManagedBean.roomSelected}" rowKey="#{room.name}">
+						<f:facet name="header">Rooms</f:facet>
+						<p:column headerText="Name">
+							<h:outputText value="#{room.name}" />
+						</p:column>
+						<p:column headerText="No. Row">
+							<h:outputText value="#{room.noRow}" />
+						</p:column>
+						<p:column headerText="No. Column">
+							<h:outputText value="#{room.noColumn}" />
+						</p:column>
+						<p:column>
+							<p:commandButton process="@this" icon="ui-icon-trash"
+								value="Delete"
+								action="#{roomManagedBean.deleteRoom(room)}"
+								update="form:accPanel:grid2" />
+						</p:column>
+
+					</p:dataTable>
+
+				</h:panelGrid>
+
+			</p:tab>
+
+
+
+		</p:accordionPanel>
+
+
+	</h:form>
+</h:body>
+</html>

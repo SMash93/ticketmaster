@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<ui:include src="/templates/commonHeader.xhtml" />
+
+	<h:form id="form">
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:dataTable id="singleDT" var="movie" value="#{programBean.movies}"
+			selectionMode="single" selection="#{programBean.selectedMovie}"
+			rowKey="#{movie.title}">
+			<f:facet name="header">
+				<h:outputText value="Program Cinema" style="float:left" />
+				<p:calendar value="#{calendarBean.date}" pattern="MM-dd-yyyy"></p:calendar>
+			</f:facet>
+			<p:column headerText="Title">
+				<h:outputText value="#{movie.title}" />
+			</p:column>
+			<p:column headerText="Genre">
+				<h:outputText value="#{movie.genre}" />
+			</p:column>
+
+			<f:facet name="footer">
+				<p:commandButton process="singleDT" update=":form:movieDetail"
+					icon="ui-icon-search" value="View"
+					oncomplete="PF('movieDialog').show()" />
+				<p:commandButton value="Make a reservation"
+					action="programBean.makeReservation" />
+			</f:facet>
+		</p:dataTable>
+
+		<p:dialog header="Movie Info" widgetVar="movieDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="movieDetail" style="text-align:center;">
+				<p:panelGrid columns="2"
+					rendered="#{not empty programBean.selectedMovie}"
+					columnClasses="label,value">
+
+					<h:outputText value="Title:" />
+					<h:outputText value="#{programBean.selectedMovie.title}" />
+
+					<h:outputText value="Rating" />
+					<h:outputText value="#{programBean.selectedMovie.rating}" />
+
+					<h:outputText value="Duration" />
+					<h:outputText value="#{programBean.selectedMovie.duration}" />
+
+					<h:outputText value="Description" />
+					<h:outputText value="#{programBean.selectedMovie.description}" />
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
+	</h:form>
+</h:body>
+
+</html>

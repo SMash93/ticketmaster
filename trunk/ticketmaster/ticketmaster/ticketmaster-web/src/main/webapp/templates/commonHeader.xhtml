@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition>
+
+		<h:form>
+			<p:menubar>
+				<p:menuitem value="Home" url="/pages/home.xhtml" icon="ui-icon-home" />
+				
+				<p:menuitem value="Program" url="/pages/program.xhtml" icon="ui-icon-star" />
+				
+				<p:menuitem value="Movies" url="/pages/movies.xhtml" icon="ui-icon-star" />
+
+				<p:menuitem value="Reservations" url="/pages/reservationInfo.xhtml" icon="ui-icon-contact" />
+						
+				<p:menuitem value="Management" url="/pages/management.xhtml" icon="ui-icon-contact" rendered="#{homeBean.managementButtonRendered}" />
+				
+				<p:menuitem value="Profile" url="/pages/profile.xhtml" icon="ui-icon-contact" rendered="#{homeBean.profileButtonRendered}" />
+				
+				<f:facet name="options">
+					<p:inputText style="margin-right:10px" placeholder="Search" />
+					<p:commandButton value="Login" action="login?faces-redirect=true" rendered="#{!homeBean.userLogged}" />
+					<p:commandButton value="Sign up" action="signup?faces-redirect=true" rendered="#{!homeBean.userLogged}" />
+					<p:commandButton value="Logout" actionListener="#{loginManagedBean.logout}" action="home?faces-redirect=true" rendered="#{homeBean.userLogged}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+
+	</ui:composition>
+</body>
+</html>

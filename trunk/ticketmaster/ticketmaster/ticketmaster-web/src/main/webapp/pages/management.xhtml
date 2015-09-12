@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body>
+	<ui:include src="/templates/commonHeader.xhtml" />
+	<h:form id="form">
+
+		<p:accordionPanel id="accPanel">
+
+			<p:tab title="Add new movie">
+				<h:panelGrid id="grid" columns="2" cellpadding="10">
+					<h:outputLabel for="title" value="Title:" style="font-weight:bold" />
+					<p:inputText id="title" value="#{managManagedBean.title}"
+						required="true" label="Title" />
+
+					<h:outputLabel for="genre" value="Genre:" style="font-weight:bold" />
+					<p:inputText id="genre" value="#{managManagedBean.genre}"
+						required="true" label="Genre" />
+
+					<h:outputLabel for="description" value="Description:"
+						style="font-weight:bold" />
+					<p:inputText id="description"
+						value="#{managManagedBean.description}" required="true"
+						label="Description" />
+
+					<h:outputLabel for="rating" value="Rating:"
+						style="font-weight:bold" />
+					<p:inputText id="rating" value="#{managManagedBean.rating}" />
+
+					<h:outputLabel for="duration" value="Duration:"
+						style="font-weight:bold" />
+					<p:inputText id="duration" value="#{managManagedBean.duration}"
+						required="true" label="Duration" />
+
+					<p:commandButton value="Add" update="grid"
+						actionListener="#{managManagedBean.addMovie}"
+						action="#{managManagedBean.emptyInput}" />
+				</h:panelGrid>
+			</p:tab>
+
+			<p:tab title="Delete movie">
+				
+				<h:panelGrid id="grid2" columns="2" cellpadding="10">
+				 
+					<p:dataTable id="singleDT" var="movie"
+						value="#{managManagedBean.movies}" selectionMode="single"
+						selection="#{managManagedBean.selectedMovie}"
+						rowKey="#{movie.title}">
+						<f:facet name="header">Movies</f:facet>
+						<p:column headerText="Title">
+							<h:outputText value="#{movie.title}" />
+						</p:column>
+						<p:column headerText="Genre">
+							<h:outputText value="#{movie.genre}" />
+						</p:column>
+						<p:column headerText="Description">
+							<h:outputText value="#{movie.description}" />
+						</p:column>
+						<p:column headerText="Rating">
+							<h:outputText value="#{movie.rating}" />
+						</p:column>
+						<p:column headerText="Duration">
+							<h:outputText value="#{movie.duration}" />
+						</p:column>
+						<p:column>
+							<p:commandButton process="@this" icon="ui-icon-trash" value="Delete" actionListener="#{managManagedBean.deleteMovie(movie)}" update="form:accPanel:grid2"/>
+						</p:column>
+
+					</p:dataTable>
+				
+				</h:panelGrid>
+
+			</p:tab>
+
+			<p:tab title="Modify program">
+				<h:panelGrid columns="2" cellpadding="10">
+
+
+				</h:panelGrid>
+			</p:tab>
+
+			<p:tab title="Add rooms">
+				<h:panelGrid columns="2" cellpadding="10">
+
+					<h:outputText value="After a break of more than 15 years..." />
+				</h:panelGrid>
+			</p:tab>
+
+			<p:tab title="Delete rooms">
+				<h:panelGrid columns="2" cellpadding="10">
+
+					<h:outputText value="After a break of more than 15 years..." />
+				</h:panelGrid>
+			</p:tab>
+
+		</p:accordionPanel>
+
+
+	</h:form>
+</h:body>
+</html>

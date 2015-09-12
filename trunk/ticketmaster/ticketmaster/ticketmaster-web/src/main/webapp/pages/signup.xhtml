@@ -1,0 +1,94 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+<ui:include src="/templates/commonHeader.xhtml" />
+	<h:form>
+		
+		<p:panel header="Sign up">
+			<p:messages autoUpdate="true" />
+
+			<h:panelGrid id="grid" columns="4" cellpadding="5">
+
+				<h:outputLabel for="firstname" value="Firstname:"
+					style="font-weight:bold" />
+				<p:inputText id="firstname" value="#{signUpBean.firstname}"
+					required="true" label="Firstname" />
+				<p:message for="firstname" />
+				<h:outputText value="#{signUpBean.firstname}" />
+
+				<h:outputLabel for="lastname" value="LastName:"
+					style="font-weight:bold" />
+				<p:inputText id="lastname" value="#{signUpBean.lastname}"
+					required="true" label="Lastname" />
+				<p:message for="lastname" />
+				<h:outputText value="#{signUpBean.lastname}" />
+
+				<h:outputLabel for="username" value="Username:"
+					style="font-weight:bold" />
+				<p:inputText id="username" value="#{signUpBean.username}"
+					title="The length must have at least 8 characters" required="true"
+					label="Username" />
+				<h:panelGroup>
+					<p:tooltip id="focus1" for="username" showEvent="focus"
+						hideEvent="blur" />
+					<p:message for="username" />
+				</h:panelGroup>
+				<h:outputText value="#{validationView.integer}" />
+
+				<h:outputLabel for="password" value="Password:"
+					style="font-weight:bold" />
+				<p:password id="password" value="#{signUpBean.password}"
+					feedback="true" promptLabel="Pass Length" weakLabel="Weak"
+					goodLabel="Good" strongLabel="Strong" required="true"
+					label="Password" />
+				<p:message for="password" />
+				<h:outputText value="#{validationView.integer}" />
+
+
+				<h:outputLabel for="email" value="Email:" style="font-weight:bold" />
+				<p:inputText id="email" value="#{signUpBean.email}" required="true"
+					label="Email" />
+				<p:message for="email" />
+				<h:outputText value="#{validationView.integer}" />
+
+
+				<h:outputLabel for="address" value="Address:"
+					style="font-weight:bold" />
+				<p:inputText id="address" value="#{signUpBean.address}"
+					label="Address" />
+				<p:message for="address" />
+				<h:outputText value="#{validationView.integer}" />
+
+				<h:outputLabel for="phone" value="Phone Number:"
+					style="font-weight:bold" />
+				<p:inputText id="phone" value="#{signUpBean.phone}"
+					label="Phone Number" />
+				<p:message for="phone" />
+				<h:outputText value="#{validationView.integer}" />
+
+				<p:commandButton value="Sign Up"  icon="ui-icon-check" 
+					action="#{signUpBean.signUp()}" validateClient="true" ajax="false"
+					style="margin-right:10px" />
+
+			</h:panelGrid>
+
+
+
+
+		</p:panel>
+	</h:form>
+
+</h:body>
+
+</html>
+

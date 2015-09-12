@@ -1,0 +1,31 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body>
+	<ui:include src="/templates/commonHeader.xhtml" />
+	<h:form>
+	<p:messages autoUpdate="true" />
+		<h:panelGrid id="grid" columns="4" cellpadding="5">
+			<h:outputText value="Username: " />
+			<p:inputText id="username" value="#{loginManagedBean.username}" />
+			<p:message for = "username"/>
+ 			<br/> <br/>
+			
+			<h:outputText value="Password: " />
+			<p:password id="password" value="#{loginManagedBean.password}" />
+			<p:message for = "password"/>
+ 			<br/> <br/>
+			
+			<p:commandButton value="Login" update="grid" action="#{loginManagedBean.login}" />
+			
+		</h:panelGrid>
+		
+	</h:form>
+</h:body>
+</html>

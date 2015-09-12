@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+
+</h:head>
+
+<h:body>
+<ui:include src="/templates/commonHeader.xhtml" />
+<h:form id="form">
+    <p:panel id="panel" header="Profile">
+        <p:messages autoUpdate="true"/>
+        
+        
+        <p:dataTable var="user" id="table" value="#{profileBean.users}" selectionMode="single" selection="#{profileBean.selectedUser}" rowKey="#{user.username}" rendered="#{profileBean.commandButtonRendered}">
+		 	
+		 	<f:facet name="header">
+            	Users
+        	</f:facet>
+		 	
+		    <p:column headerText="Firstname">
+		        <h:outputText value="#{user.firstName}" />
+		    </p:column>
+		 
+		    <p:column headerText="Lastname">
+		        <h:outputText value="#{user.lastName}" />
+		    </p:column>
+		 	
+		 	<p:column headerText="Username">
+		        <h:outputText value="#{user.username}" />
+		    </p:column>
+		    
+		    <p:column headerText="Password">
+		        <h:outputText value="#{user.password}" />
+		    </p:column>
+		    
+		    <p:column headerText="Email">
+		        <h:outputText value="#{user.email}" />
+		    </p:column>
+		    
+		    <p:column headerText="Address">
+		        <h:outputText value="#{user.address}" />
+		    </p:column>
+		    
+		    <p:column headerText="Phone Number">
+		        <h:outputText value="#{user.phoneNumber}" />
+		    </p:column>
+		    
+		    <p:column headerText="Usertype">
+		        <h:outputText value="#{user.userType}" />
+		    </p:column>
+		    
+		    <f:facet name="footer">
+            	<p:commandButton value="Select item" action="#{profileBean.completeFields}" update=":form:grid" rendered="#{profileBean.commandButtonRendered}" />
+        	</f:facet>
+
+		</p:dataTable>
+		 
+		 
+        <h:panelGrid id="grid" columns="4" cellpadding="5">
+           
+            <h:outputLabel for="firstname" value="Firstname:" style="font-weight:bold"/>                    
+            <p:inputText id="firstname" value="#{profileBean.firstname}"  label="Name"/>
+            <p:message for="firstname" />
+            <h:outputText value="#{validationView.text}" />
+ 
+            <h:outputLabel for="lastname" value="LastName:" style="font-weight:bold"/>                    
+            <p:inputText id="lastname" value="#{profileBean.lastname}" label="Lastname"/>
+            <p:message for="lastname" />
+            <h:outputText value="#{validationView.integer}" />
+            
+            <h:outputLabel for="username" value="Username:" style="font-weight:bold"/>                    
+            <p:inputText id="username" value="#{profileBean.username}" label="Username" title="The length must have at least 8 characters"/>
+            <h:panelGroup>
+            <p:tooltip id="focus1" for="username" showEvent="focus" hideEvent="blur" />	
+            <p:message for="username" />
+            </h:panelGroup>
+            <h:outputText value="#{validationView.integer}" />
+            
+            <h:outputLabel for="password" value="Password:" style="font-weight:bold"/>                    
+            <p:inputText id="password" value="#{profileBean.password}" feedback="true"
+                    promptLabel="Pass Length" weakLabel="Weak"
+                    goodLabel="Good" strongLabel="Strong" />
+            <p:message for="password" />
+            <h:outputText value="#{validationView.integer}" />
+            
+            
+            <h:outputLabel for="email" value="Email:" style="font-weight:bold"/>                    
+            <p:inputText id="email" value="#{profileBean.email}" label="Email"/>
+            <p:message for="email" />
+            <h:outputText value="#{validationView.integer}" />
+            
+            
+            <h:outputLabel for="address" value="Address:" style="font-weight:bold"/>                    
+            <p:inputText id="address" value="#{profileBean.address}" label="Address"/>
+            <p:message for="address" />
+            <h:outputText value="#{validationView.integer}" />
+            
+            <h:outputLabel for="phone" value="Phone Number:" style="font-weight:bold"/>                    
+            <p:inputText id="phone" value="#{profileBean.phone}" label="Phone Number"/>
+            <p:message for="phone" />
+            <h:outputText value="#{validationView.integer}" />
+            
+            <p:outputLabel for="type" value="Type: " rendered="#{profileBean.commandButtonRendered}" />
+            <p:selectOneMenu id="type" value="#{profileBean.type}" style="width:150px" rendered="#{profileBean.commandButtonRendered}" >    
+                <f:selectItems value="#{profileBean.types}" />
+            </p:selectOneMenu>
+            
+			
+			
+			
+        </h:panelGrid>
+        
+        <p:commandButton value="Create" action="#{profileBean.create}" update=":form:panel" rendered="#{profileBean.commandButtonRendered}"/>
+		<p:commandButton value="Update" action="#{profileBean.update}" update=":form:panel" />
+		<p:commandButton value="Delete" action="#{profileBean.delete}" update=":form:panel" />
+ 
+       
+    </p:panel>
+</h:form>
+
+</h:body>
+
+</html>
